@@ -1,4 +1,4 @@
-import { ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import Home from './screens/Home';
 
@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: '#fff',
 	},
+
 	backgroundImag: {
 		width: '100%',
 		height: '100%',
