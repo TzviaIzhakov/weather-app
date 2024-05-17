@@ -13,25 +13,6 @@ export const weatherService = {
 
 const STORAGE_KEY = 'WEATHERDB';
 
-async function getDefaultLocation(latitude: number, longitude: number): Promise<Weather> {
-	try {
-		const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json}`, {
-			params: {
-				key: process.env.EXPO_PUBLIC_WEATHER_KEY,
-				q: `${latitude},${longitude}`,
-				aqi: 'no',
-				days: 7,
-			},
-		});
-
-		const weatherData = response.data;
-		const weather = getFormattedPayload(weatherData);
-		return weather;
-	} catch (err) {
-		throw new Error(`Failed to load weather: ${err}`);
-	}
-}
-
 function getForecast(forecastday: any) {
 	forecastday = forecastday.map((f: Forecast) => ({ day: f.date_epoch, text: f.day.condition.text, temp: f.day.avgtemp_c }));
 	return forecastday;
@@ -55,6 +36,25 @@ function getFormattedPayload(weather: any): Weather {
 		wind: current.wind_kph,
 		forecast: getForecast(forecastday),
 	};
+}
+
+async function getDefaultLocation(latitude: number, longitude: number): Promise<Weather> {
+	try {
+		const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json}`, {
+			params: {
+				key: process.env.EXPO_PUBLIC_WEATHER_KEY,
+				q: `${latitude},${longitude}`,
+				aqi: 'no',
+				days: 7,
+			},
+		});
+
+		const weatherData = response.data;
+		const weather = getFormattedPayload(weatherData);
+		return weather;
+	} catch (err) {
+		throw new Error(`Failed to load weather: ${err}`);
+	}
 }
 
 async function query(filterBy = { txt: '', country: '' }, latitude: number, longitude: number): Promise<Weather> {
