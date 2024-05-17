@@ -1,13 +1,16 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 
-import heavyRainImg from '../assets/images/heavyrain.png';
+import { weatherUtils } from '../utils/weatherUtils';
+import weatherConsts from '../constants/weatherConsts';
 
-export default function WeatherForecastPreview() {
+import SunnyImg from '../assets/images/sun.png';
+
+export default function WeatherForecastPreview({ forecast }) {
 	return (
 		<View style={styles.weatherForecastPreview}>
-			<Image source={heavyRainImg} style={styles.conditionImg} />
-			<Text style={styles.forecastDay}>Monday</Text>
-			<Text style={styles.forecastTemp}>23&#176;</Text>
+			<Image source={weatherConsts[forecast.text] || SunnyImg} style={styles.conditionImg} />
+			<Text style={styles.forecastDay}>{weatherUtils.getDay(forecast.day)}</Text>
+			<Text style={styles.forecastTemp}>{forecast.temp}&#176;</Text>
 		</View>
 	);
 }
@@ -21,6 +24,7 @@ const styles = StyleSheet.create({
 		minWidth: 100,
 		height: 100,
 		marginRight: 15,
+		padding: 10,
 	},
 
 	conditionImg: {
