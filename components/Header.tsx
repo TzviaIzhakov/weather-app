@@ -1,35 +1,85 @@
-import { useState } from 'react';
+import { debounce } from 'lodash';
+import { StatusBar } from 'expo-status-bar';
+import { useCallback, useState } from 'react';
 import { MagnifyingGlassIcon, MapPinIcon } from 'react-native-heroicons/outline';
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
-import useWeather from '../hooks/useWeather';
+import { weatherService } from '../services/weatherService';
 
-export default function Header() {
+import { FilterBy } from '../types/weatherType';
+import { Location } from '../types/weatherType';
+
+type setFilterProps = {
+	handleFilter: (filter: FilterBy) => void;
+};
+
+export default function Header({ handleFilter }: setFilterProps) {
 	const [showSearch, setSearch] = useState(false);
-	const { locations } = useWeather();
+	const [city, setCity] = useState('');
+	const [locations, setLocations] = useState<Location[]>([]);
 
-	function handleLocation() {}
+	function handleLocation(location: Location) {
+		handleFilter({ txt: location.city, country: location.country });
+		setSearch(false);
+		setLocations([]);
+		setCity('');
+	}
+
+	async function handleChange(value) {
+		if (value.length > 2) {
+			const locations = await weatherService.queryLocations(value);
+			setLocations(locations);
+			setSearch(true);
+		}
+	}
+
+	const handleTextDebounce = useCallback(debounce(handleChange, 1200), []);
 
 	return (
-		<KeyboardAvoidingView style={styles.inputContainer} behavior='height'>
-			{showSearch ? <TextInput placeholder='Search City' style={styles.searchCityInput} placeholderTextColor='lightgray' /> : null}
-
-			<TouchableOpacity style={styles.touchableOpacity} onPress={() => setSearch((prev) => !prev)}>
-				<MagnifyingGlassIcon size={25} color='white' />
-			</TouchableOpacity>
+		<KeyboardAvoidingView
+			style={styles.inputContainer}
+			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+			keyboardVerticalOffset={Platform.OS === 'android' ? 0 : 75}
+		>
+			<StatusBar hidden={true} />
+			<View>
+				<TextInput
+					placeholder='Search City'
+					style={styles.searchCityInput}
+					placeholderTextColor='lightgray'
+					onChangeText={(value) => {
+						handleTextDebounce(value);
+						setCity(value);
+					}}
+					value={city}
+				></TextInput>
+				<View style={styles.searchIcon}>
+					<MagnifyingGlassIcon size={25} color='white' />
+				</View>
+			</View>
 
 			{locations.length > 0 && showSearch && (
 				<View style={styles.locationsContainer}>
-					{locations?.map((location, index) => (
-						<TouchableOpacity
-							key={location}
-							style={index + 1 !== locations.length ? [styles.location, styles.border] : styles.location}
-							onPress={() => handleLocation()}
-						>
-							<MapPinIcon size={20} color={'gray'} />
-							<Text style={styles.locationName}>{location}</Text>
-						</TouchableOpacity>
-					))}
+					<FlatList
+						data={locations}
+						renderItem={({ item, index }) => {
+							return (
+								<TouchableOpacity
+									key={`${item}-${index}`}
+									style={index + 1 !== locations.length ? [styles.location, styles.border] : styles.location}
+									onPress={() => handleLocation(item)}
+								>
+									<MapPinIcon size={20} color={'gray'} />
+									<Text style={styles.locationName}>
+										{item.city}, {item.country}
+									</Text>
+								</TouchableOpacity>
+							);
+						}}
+						keyExtractor={(item, index) => `${item._id}-${index}`}
+						ItemSeparatorComponent={() => <View style={{ width: 1 }}></View>}
+						ListEmptyComponent={() => <Text>No Items Found</Text>}
+					/>
 				</View>
 			)}
 		</KeyboardAvoidingView>
@@ -38,9 +88,9 @@ export default function Header() {
 
 const styles = StyleSheet.create({
 	inputContainer: {
-		height: '7%',
 		marginHorizontal: 15,
-		marginBottom: 12,
+		marginBottom: 20,
+		flex: 1,
 	},
 
 	searchCityInput: {
@@ -48,24 +98,23 @@ const styles = StyleSheet.create({
 		backgroundColor: 'rgba(255,255,255,0.2)',
 		borderRadius: 25,
 		paddingLeft: 20,
+		color: 'white',
+		marginBottom: 3,
 	},
 
-	touchableOpacity: {
+	searchIcon: {
 		backgroundColor: 'rgba(255,255,255,0.3)',
-		padding: 15,
+		padding: 10,
 		borderRadius: 50,
 		position: 'absolute',
-		right: 5,
-		top: 5,
-		bottom: 5,
+		right: 10,
+		top: 7,
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
 
 	locationsContainer: {
-		position: 'absolute',
 		backgroundColor: 'white',
-		top: 60,
 		width: '100%',
 		borderRadius: 30,
 		padding: 10,
@@ -73,6 +122,7 @@ const styles = StyleSheet.create({
 
 	location: {
 		flexDirection: 'row',
+		alignItems: 'center',
 		gap: 5,
 		marginBottom: 1,
 		padding: 10,
