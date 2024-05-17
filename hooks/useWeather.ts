@@ -17,7 +17,6 @@ export default function useWeather() {
 	async function loadCurrWeather() {
 		try {
 			const { latitude, longitude } = currLocation;
-			console.log(latitude, longitude);
 			const weather = await weatherService.query(filterBy, latitude, longitude);
 			setCurrWeather(weather);
 		} catch (error) {
