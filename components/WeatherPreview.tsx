@@ -1,55 +1,66 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
+
+import { weatherUtils } from '../utils/weatherUtils';
+
+import { Weather } from '../types/weatherType';
 
 import sunImg from '../assets/images/sun.png';
 import sunIcon from '../assets/icons/sun.png';
 import windIcon from '../assets/icons/wind.png';
 import dropIcon from '../assets/icons/drop.png';
 
-export default function WeatherPreview() {
-	return (
+type WeatherPreviewProps = {
+	currWeather: Weather;
+};
+
+export default function WeatherPreview({ currWeather }: WeatherPreviewProps) {
+	return !currWeather ? (
+		<ActivityIndicator size={50} color={'white'} animating={true} />
+	) : (
 		<View style={styles.weatherPreview}>
 			<Text style={styles.city}>
-				{`Islamabad, `}
-				<Text style={styles.country}>Pakistan</Text>
+				{`${currWeather.location.name}, `}
+				<Text style={styles.country}>{currWeather.location.country}</Text>
 			</Text>
 
 			<Image source={sunImg} style={styles.sunImg} />
 
 			<View style={styles.currentWeatherDetail}>
-				<Text style={styles.currentTemp}>36.9&#176;</Text>
-				<Text style={styles.currentDay}>Sunday</Text>
+				<Text style={styles.currentTemp}>{currWeather.temp}&#176;</Text>
+				<Text style={styles.currentDay}>{weatherUtils.getCurrentDay()}</Text>
 			</View>
 
 			<View style={styles.conditionsContainer}>
 				<View style={styles.condition}>
 					<Image source={windIcon} style={styles.conditionIcon} />
-					<Text style={styles.conditionDetail}>4.3km</Text>
+					<Text style={styles.conditionDetail}>{currWeather.wind}Km</Text>
 				</View>
 
 				<View style={styles.condition}>
 					<Image source={dropIcon} style={styles.conditionIcon} />
-					<Text style={styles.conditionDetail}>14%</Text>
+					<Text style={styles.conditionDetail}>{currWeather.humidity}%</Text>
 				</View>
 
 				<View style={styles.condition}>
 					<Image source={sunIcon} style={styles.conditionIcon} />
-					<Text style={styles.conditionDetail}>5:09 AM</Text>
+					<Text style={styles.conditionDetail}>{weatherUtils.getHour(currWeather.location.localtime)}</Text>
 				</View>
 			</View>
 		</View>
 	);
 }
-
 const styles = StyleSheet.create({
 	weatherPreview: {
+		flex: 1,
 		alignItems: 'center',
+		justifyContent: 'space-between',
+		gap: 10,
 	},
 
 	city: {
 		fontSize: 20,
 		fontWeight: '900',
 		color: 'white',
-		marginBottom: 30,
 	},
 
 	country: {
@@ -61,12 +72,10 @@ const styles = StyleSheet.create({
 	sunImg: {
 		width: 250,
 		height: 250,
-		marginBottom: 16,
 	},
 
 	currentWeatherDetail: {
 		alignItems: 'center',
-		marginBottom: 60,
 	},
 
 	currentTemp: {
@@ -78,12 +87,13 @@ const styles = StyleSheet.create({
 	currentDay: {
 		fontSize: 20,
 		color: 'lightgray',
+		marginBottom: 10,
 	},
 
 	conditionsContainer: {
 		flexDirection: 'row',
 		gap: 15,
-		marginBottom: 40,
+		// marginBottom: 100,
 	},
 
 	condition: {
