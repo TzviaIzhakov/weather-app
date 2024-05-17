@@ -67,7 +67,6 @@ async function query(filterBy = { txt: '', country: '' }, latitude: number, long
 		const dayTimeStamp = weatherUtils.getCurrentDayTimestamp();
 		// storedWeathers is the stored data in the storage : {[day:number] : Weather[]}
 		let storedWeathers: WeatherMap = (await storageService.query(STORAGE_KEY)) || {};
-
 		if (filterBy.txt === '') {
 			// If no filter is applied and stored weather data exists for the current day, return the first entry which represents also the location of the user
 			if (storedWeathers[dayTimeStamp]?.length > 0) {
