@@ -9,8 +9,8 @@ export default function WeatherForecastPreview({ forecast }) {
 	return (
 		<View style={styles.weatherForecastPreview}>
 			<Image source={weatherConsts[forecast.text] || SunnyImg} style={styles.conditionImg} />
-			<Text style={styles.forecastDay}>{weatherUtils.getDay(forecast.day)}</Text>
-			<Text style={styles.forecastTemp}>{forecast.temp}&#176;</Text>
+			<Text style={styles.forecastDay}>{weatherUtils.getDay(forecast.day) || 'Sunday'}</Text>
+			<Text style={styles.forecastTemp}>{Math.ceil(forecast.temp) || 5}&#176;</Text>
 		</View>
 	);
 }

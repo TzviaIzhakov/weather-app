@@ -13,6 +13,7 @@ type WeatherPreviewProps = {
 	currWeather: Weather;
 };
 
+// this is the component that display the weather details, it receives the currWeather prop from the home component
 export default function WeatherPreview({ currWeather }: WeatherPreviewProps) {
 	return !currWeather ? (
 		<ActivityIndicator size={50} color={'white'} animating={true} />
