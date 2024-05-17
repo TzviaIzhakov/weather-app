@@ -9,10 +9,15 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.23.1",
+    "axios": "^1.6.8",
     "expo": "~51.0.6",
+    "expo-location": "~17.0.1",
     "expo-status-bar": "~1.12.1",
+    "lodash": "^4.17.21",
     "react": "18.2.0",
     "react-native": "0.74.1",
+    "react-native-geolocation-service": "^5.3.1",
     "react-native-heroicons": "^4.0.0"
   },
   "devDependencies": {
