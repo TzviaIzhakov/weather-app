@@ -24,17 +24,23 @@
 
 <h2>Getting Started</h2>
 
-To run the weather app locally, follow these steps:
-Clone the Repository:
-git clone https://github.com/TzviaIzhakov/weather-app.git
+### To run TubeView locally, follow these steps:
 
-Navigate to the Project Directory:
-cd weather-app
-Install Dependencies:
-npm i
-Run the Application:
-npx expo start
-Scan the qr code and open the app with Expo Go
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/TzviaIzhakov/weather-app.git
+
+2. **Navigate to the Project Directory:**
+      ```bash
+     cd weather-app
+      
+3. **Install Dependencies:**
+      ```bash
+      npm i
+4. **Run the Application:**
+      ```bash
+      npx expo start
+5. **Scan the qr code and open the app with Expo Go**
 
 <h2>Environment Variables</h2>
 To run this project, you will need to add the next environment variable to your .env file
