@@ -2,7 +2,7 @@ import { FlatList, Platform, StyleSheet, View } from 'react-native';
 
 import useWeather from '../hooks/useWeather';
 
-import { FilterBy } from '../types/weatherType';
+import { FilterBy, Weather } from '../types/weatherType';
 
 import Header from '../components/Header';
 import DailyForecast from '../components/DailyForecast';
@@ -23,14 +23,14 @@ export default function Home() {
 	];
 
 	// Function to render each item in the FlatList
-	const renderItem = ({ item }) => {
+	const renderItem = ({ item }: { item: { cmpName: string; component: string } }) => {
 		switch (item.component) {
 			case 'Header':
 				return <Header handleFilter={handleFilter} />;
 			case 'WeatherPreview':
-				return <WeatherPreview currWeather={currWeather} />;
+				return <WeatherPreview currWeather={currWeather as Weather} />;
 			case 'DailyForecast':
-				return <DailyForecast currWeather={currWeather} />;
+				return <DailyForecast currWeather={currWeather as Weather} />;
 			default:
 				return null;
 		}
