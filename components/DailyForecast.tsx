@@ -9,6 +9,7 @@ type DailyForecastProps = {
 	currWeather: Weather;
 };
 
+// this is the component that display the daily forecast of the weather - i decided to display forecast for a week, it receives the currWeather prop from the home component
 export default function DailyForecast({ currWeather }: DailyForecastProps) {
 	return (
 		<View style={styles.dailyForecastContainer}>
@@ -21,6 +22,7 @@ export default function DailyForecast({ currWeather }: DailyForecastProps) {
 				style={styles.weatherForecastList}
 				data={currWeather?.forecast}
 				renderItem={({ item }) => {
+					//this is the component of forecast weather of one day
 					return <WeatherForecastPreview forecast={item} />;
 				}}
 				horizontal
