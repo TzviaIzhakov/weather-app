@@ -14,10 +14,15 @@ type setFilterProps = {
 };
 
 export default function Header({ handleFilter }: setFilterProps) {
-	const [showSearch, setSearch] = useState(false);
+	// city is the state of the text in the input search
 	const [city, setCity] = useState('');
+	// showSearch is a boolean state that is used to show the locations below the input
+	const [showSearch, setSearch] = useState(false);
+	// locations state is the array of the locations that need to appear below the input
 	const [locations, setLocations] = useState<Location[]>([]);
 
+	/* handleLocation function triggered when the user clicked on spesific location
+	it uses the hanfleFilter props to change the global filter state, and changing the search state to be false and the text on the search bar to be empty*/
 	function handleLocation(location: Location) {
 		handleFilter({ txt: location.city, country: location.country });
 		setSearch(false);
@@ -25,6 +30,7 @@ export default function Header({ handleFilter }: setFilterProps) {
 		setCity('');
 	}
 
+	// the debounced function uses handleChange this function only when the user is typing more then 2 characters , it gets the location via the service and set the location state there, after i changed the state of the search to be true so that the user will see the location results
 	async function handleChange(value) {
 		if (value.length > 2) {
 			const locations = await weatherService.queryLocations(value);
@@ -32,6 +38,9 @@ export default function Header({ handleFilter }: setFilterProps) {
 			setSearch(true);
 		}
 	}
+
+	/* this is the function that is running while the user is typing in the search input,
+	 i used intentionally debounce not to call every time to the weather api*/
 
 	const handleTextDebounce = useCallback(debounce(handleChange, 1200), []);
 
