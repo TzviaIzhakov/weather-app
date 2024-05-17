@@ -9,11 +9,13 @@ import Home from './screens/Home';
 import backgroundImg from './assets/images/bg.png';
 
 export default function App() {
+	// Define a variable weatherHandler and initialize it with the result of calling the useWeather() hook
 	const weatherHandler = useWeather();
 
 	return (
 		<SafeAreaView style={styles.container}>
 			<ImageBackground style={styles.backgroundImag} source={backgroundImg} blurRadius={55} />
+			{/* Provide the weatherHandler context to the Home component */}
 			<WeatherContext.Provider value={weatherHandler}>
 				<Home />
 			</WeatherContext.Provider>
