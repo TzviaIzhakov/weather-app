@@ -5,10 +5,8 @@ import { Coordinates, FilterBy, Weather } from '../types/weatherType';
 interface WeatherContextType {
 	currWeather: Weather | null;
 	currLocation: Coordinates;
-	loadCurrWeather: () => void;
 	setFilterBy: (filterBy: FilterBy) => void;
 	filterBy: FilterBy;
-	setCurrLocation: () => void;
 }
 
 const WeatherContext = createContext<WeatherContextType>({
@@ -29,10 +27,8 @@ const WeatherContext = createContext<WeatherContextType>({
 	},
 
 	currLocation: { latitude: 0, longitude: 0 },
-	loadCurrWeather: () => {},
 	setFilterBy: () => {},
 	filterBy: { txt: '' },
-	setCurrLocation: () => {},
 });
 
 export default WeatherContext;
