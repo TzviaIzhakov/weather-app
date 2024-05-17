@@ -1,10 +1,12 @@
+import { WeatherConsts } from '../types/weatherType';
+
 import cloudImg from '../assets/images/cloud.png';
 import sunImg from '../assets/images/sun.png';
 import heavyRainImg from '../assets/images/heavyrain.png';
 import moderateRainImg from '../assets/images/moderaterain.png';
 import partlyCloudyImg from '../assets/images/partlycloudy.png';
 
-const weatherConsts = {
+const weatherConsts: WeatherConsts = {
 	'Partly cloudy': partlyCloudyImg,
 	'Patchy rain nearby': partlyCloudyImg,
 	'Moderate rain': moderateRainImg,
