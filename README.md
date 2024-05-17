@@ -21,3 +21,22 @@
   <li>React Native Async Storage</li>
   <li>expo-location</li>
 </ul>
+
+<h2>Getting Started</h2>
+
+To run the weather app locally, follow these steps:
+Clone the Repository:
+git clone https://github.com/TzviaIzhakov/weather-app.git
+
+Navigate to the Project Directory:
+cd weather-app
+Install Dependencies:
+npm i
+Run the Application:
+npx expo start
+Scan the qr code and open the app with Expo Go
+
+<h2>Environment Variables</h2>
+To run this project, you will need to add the next environment variable to your .env file
+I used the api from https://www.weatherapi.com/
+WEATHER_KEY = [Your api key]
