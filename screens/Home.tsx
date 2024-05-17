@@ -1,4 +1,4 @@
-import { FlatList, Platform, StyleSheet } from 'react-native';
+import { FlatList, Platform, StyleSheet, View } from 'react-native';
 
 import useWeather from '../hooks/useWeather';
 
@@ -15,12 +15,14 @@ export default function Home() {
 		setFilterBy(filter);
 	}
 
+	// Array of objects representing components to be rendered
 	const components = [
 		{ cmpName: 'header', component: 'Header' },
 		{ cmpName: 'weatherPreview', component: 'WeatherPreview' },
 		{ cmpName: 'dailyForecast', component: 'DailyForecast' },
 	];
 
+	// Function to render each item in the FlatList
 	const renderItem = ({ item }) => {
 		switch (item.component) {
 			case 'Header':
@@ -34,6 +36,7 @@ export default function Home() {
 		}
 	};
 
+	// Return a FlatList component to render the list of components in order to enable scrolling if needed
 	return <FlatList style={styles.homeContainer} data={components} renderItem={renderItem} keyExtractor={(item) => item.cmpName} />;
 }
 
