@@ -20,6 +20,7 @@
   <li>axios</li>
   <li>React Native Async Storage</li>
   <li>expo-location</li>
+  <li>lodash</li>
 </ul>
 
 <h2>Getting Started</h2>
