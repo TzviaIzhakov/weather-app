@@ -6,7 +6,6 @@
   - **Current Weather**: Get instant updates on the current weather conditions including temperature, humidity, wind speed, and more.
   - **Location-Based**: Receive weather information based on your current location or search for any city worldwide.
   - **Daily Forecasts**: Plan your week with daily weather forecasts that include high and low temperatures, precipitation chances, and wind conditions.
-  - **Hourly Forecasts**: Detailed hourly forecasts help you plan your activities with precision.
 </p> 
 
 <h2>Technologies</h2>
