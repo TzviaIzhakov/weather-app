@@ -1,8 +1,8 @@
+import cloudImg from '../assets/images/cloud.png';
+import sunImg from '../assets/images/sun.png';
 import heavyRainImg from '../assets/images/heavyrain.png';
 import moderateRainImg from '../assets/images/moderaterain.png';
 import partlyCloudyImg from '../assets/images/partlycloudy.png';
-import sunImg from '../assets/images/sun.png';
-import cloudImg from '../assets/images/cloud.png';
 
 const weatherConsts = {
 	'Partly cloudy': partlyCloudyImg,
