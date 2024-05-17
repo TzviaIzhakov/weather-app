@@ -20,36 +20,37 @@ export default function WeatherPreview({ currWeather }: WeatherPreviewProps) {
 	) : (
 		<View style={styles.weatherPreview}>
 			<Text style={styles.city}>
-				{`${currWeather.location.name}, `}
-				<Text style={styles.country}>{currWeather.location.country}</Text>
+				{`${currWeather.location.name}, ` || 'Ramla'}
+				<Text style={styles.country}>{currWeather.location.country || 'Israel'}</Text>
 			</Text>
 
 			<Image source={sunImg} style={styles.sunImg} />
 
 			<View style={styles.currentWeatherDetail}>
-				<Text style={styles.currentTemp}>{currWeather.temp}&#176;</Text>
-				<Text style={styles.currentDay}>{weatherUtils.getCurrentDay()}</Text>
+				<Text style={styles.currentTemp}>{currWeather.temp || 36}&#176;</Text>
+				<Text style={styles.currentDay}>{weatherUtils.getCurrentDay() || 'Sunday'}</Text>
 			</View>
 
 			<View style={styles.conditionsContainer}>
 				<View style={styles.condition}>
 					<Image source={windIcon} style={styles.conditionIcon} />
-					<Text style={styles.conditionDetail}>{currWeather.wind}Km</Text>
+					<Text style={styles.conditionDetail}>{currWeather.wind || 22}Km</Text>
 				</View>
 
 				<View style={styles.condition}>
 					<Image source={dropIcon} style={styles.conditionIcon} />
-					<Text style={styles.conditionDetail}>{currWeather.humidity}%</Text>
+					<Text style={styles.conditionDetail}>{currWeather.humidity || 5}%</Text>
 				</View>
 
 				<View style={styles.condition}>
 					<Image source={sunIcon} style={styles.conditionIcon} />
-					<Text style={styles.conditionDetail}>{weatherUtils.getHour(currWeather.location.localtime)}</Text>
+					<Text style={styles.conditionDetail}>{weatherUtils.getHour(currWeather.location.localtime) || '00:00 AM'}</Text>
 				</View>
 			</View>
 		</View>
 	);
 }
+
 const styles = StyleSheet.create({
 	weatherPreview: {
 		flex: 1,
