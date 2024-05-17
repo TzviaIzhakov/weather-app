@@ -26,6 +26,7 @@ export default function DailyForecast({ currWeather }: DailyForecastProps) {
 					return <WeatherForecastPreview forecast={item} />;
 				}}
 				horizontal
+				showsHorizontalScrollIndicator={false}
 				keyExtractor={(item, index) => `${item.text}-${index}`}
 				ItemSeparatorComponent={() => <View style={{ width: 1 }}></View>}
 				ListEmptyComponent={() => <Text>No Items Found</Text>}
@@ -37,6 +38,7 @@ export default function DailyForecast({ currWeather }: DailyForecastProps) {
 const styles = StyleSheet.create({
 	dailyForecastContainer: {
 		flex: 1,
+		marginBottom: 40,
 	},
 
 	weatherForecastList: {
