@@ -43,3 +43,7 @@ export type Location = {
 	lon: number;
 	_id: number;
 };
+
+export type WeatherConsts = {
+	[key: string]: any;
+};
