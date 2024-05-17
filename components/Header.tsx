@@ -119,7 +119,6 @@ const styles = StyleSheet.create({
 		right: 10,
 		top: 7,
 		alignItems: 'center',
-		justifyContent: 'center',
 	},
 
 	locationsContainer: {
