@@ -31,7 +31,7 @@ export default function Header({ handleFilter }: setFilterProps) {
 	}
 
 	// the debounced function uses handleChange this function only when the user is typing more then 2 characters , it gets the location via the service and set the location state there, after i changed the state of the search to be true so that the user will see the location results
-	async function handleChange(value) {
+	async function handleChange(value: string) {
 		if (value.length > 2) {
 			const locations = await weatherService.queryLocations(value);
 			setLocations(locations);
