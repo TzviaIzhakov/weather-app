@@ -46,4 +46,4 @@
 <h2>Environment Variables</h2>
 To run this project, you will need to add the next environment variable to your .env file
 I used the api from https://www.weatherapi.com/
-WEATHER_KEY = [Your api key]
+EXPO_PUBLIC_WEATHER_KEY = [Your api key]
