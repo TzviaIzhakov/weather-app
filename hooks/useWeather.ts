@@ -1,13 +1,19 @@
-import { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
+import { useEffect, useState } from 'react';
 import { weatherService } from '../services/weatherService';
 import { Coordinates, FilterBy, Weather } from '../types/weatherType';
 
+// this is the hook of weather, it returns the current weather fetched from the weather service, the current location detected by  expo location and the filterBy state
 export default function useWeather() {
+	// filterBy state represents the filter state which contains txt key and another optional key called country
+	// the txt key represent the location that the user searched
 	const [filterBy, setFilterBy] = useState<FilterBy>(weatherService.getDefaultFilter());
-	const [currLocation, setCurrLocation] = useState<Coordinates>({ latitude: 0, longitude: 0 });
+	// currWeather state represents the weather retrieved from the weather service
 	const [currWeather, setCurrWeather] = useState<Weather | null>(null);
+	// currLocation is the state represents the current location of the user
+	const [currLocation, setCurrLocation] = useState<Coordinates>({ latitude: 0, longitude: 0 });
 
+	//loadCurrWeather function update the currWeather state by calling query function from service
 	async function loadCurrWeather() {
 		try {
 			const { latitude, longitude } = currLocation;
@@ -18,6 +24,7 @@ export default function useWeather() {
 		}
 	}
 
+	//getLocation function updates currLocation state through calling Location from expo-location
 	async function getLocation() {
 		try {
 			let { status } = await Location.requestForegroundPermissionsAsync();
@@ -36,13 +43,15 @@ export default function useWeather() {
 		}
 	}
 
+	//when the app first rendered it will get the current location of the user
 	useEffect(() => {
 		getLocation();
 	}, []);
 
+	//when the current location of the user updated or the location that the user selected is updated the app will render again
 	useEffect(() => {
 		loadCurrWeather();
 	}, [currLocation, filterBy]);
 
-	return { currWeather, currLocation, loadCurrWeather, setFilterBy, filterBy, setCurrLocation };
+	return { currWeather, currLocation, setFilterBy, filterBy };
 }
