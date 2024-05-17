@@ -34,7 +34,7 @@ export default function WeatherPreview({ currWeather }: WeatherPreviewProps) {
 			<View style={styles.conditionsContainer}>
 				<View style={styles.condition}>
 					<Image source={windIcon} style={styles.conditionIcon} />
-					<Text style={styles.conditionDetail}>{currWeather.wind || 22}Km</Text>
+					<Text style={styles.conditionDetail}>{currWeather.wind || 22} Km</Text>
 				</View>
 
 				<View style={styles.condition}>
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		gap: 10,
+		marginVertical: 25,
 	},
 
 	city: {
