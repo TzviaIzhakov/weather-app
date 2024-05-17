@@ -1,11 +1,18 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 
+import { Forecast } from '../types/weatherType';
+
 import { weatherUtils } from '../utils/weatherUtils';
+
 import weatherConsts from '../constants/weatherConsts';
 
 import SunnyImg from '../assets/images/sun.png';
 
-export default function WeatherForecastPreview({ forecast }) {
+type WeatherForecastPreviewProps = {
+	forecast: Forecast;
+};
+
+export default function WeatherForecastPreview({ forecast }: WeatherForecastPreviewProps) {
 	return (
 		<View style={styles.weatherForecastPreview}>
 			<Image source={weatherConsts[forecast.text] || SunnyImg} style={styles.conditionImg} />
