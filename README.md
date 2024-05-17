@@ -1,6 +1,6 @@
 <h1>Description</h1>
 <p>Welcome to my weather application! 
-  my app designed to provide accurate and up-to-date weather information. Whether you're planning your day, week, or a special event
+  my app designed to provide accurate and up-to-date weather information 😎
   <h2>Key Features</h2>
   
   - **Current Weather**: Get instant updates on the current weather conditions including temperature, humidity, wind speed, and more.
