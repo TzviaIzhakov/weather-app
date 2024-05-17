@@ -15,7 +15,7 @@ const STORAGE_KEY = 'WEATHERDB';
 
 //getForecast returns a formatted array of daily forecast weather
 function getForecast(forecastday: any): Forecast[] {
-	forecastday = forecastday.map((f: Forecast) => ({ day: f.date_epoch, text: f.day.condition.text, temp: f.day.avgtemp_c }));
+	forecastday = forecastday.map((f: any) => ({ day: f.date_epoch, text: f.day.condition.text, temp: f.day.avgtemp_c }));
 	return forecastday;
 }
 
@@ -125,5 +125,5 @@ async function queryLocations(text: string): Promise<Location[]> {
 
 //this function returns the default filter
 function getDefaultFilter() {
-	return { txt: '' };
+	return { txt: '', county: '' };
 }
