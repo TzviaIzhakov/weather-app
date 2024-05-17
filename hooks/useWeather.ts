@@ -17,6 +17,7 @@ export default function useWeather() {
 	async function loadCurrWeather() {
 		try {
 			const { latitude, longitude } = currLocation;
+			console.log(latitude, longitude);
 			const weather = await weatherService.query(filterBy, latitude, longitude);
 			setCurrWeather(weather);
 		} catch (error) {
@@ -25,23 +26,25 @@ export default function useWeather() {
 	}
 
 	//getLocation function updates currLocation state through calling Location from expo-location
-	async function getLocation() {
+	const getLocation = async () => {
 		try {
-			let { status } = await Location.requestForegroundPermissionsAsync();
+			const { status } = await Location.requestForegroundPermissionsAsync();
 			if (status !== 'granted') {
 				console.error('Permission to access location was denied');
+				alert('Permission to access location was denied. Please enable location services in your device settings.');
 				return;
 			}
 
-			let location = await Location.getCurrentPositionAsync({});
+			const location = await Location.getCurrentPositionAsync({});
 			setCurrLocation({
 				latitude: location.coords.latitude,
 				longitude: location.coords.longitude,
 			});
 		} catch (error) {
-			throw new Error(`Error fetching location:', ${error}`);
+			console.error(`Error fetching location: ${error}`);
+			alert('Error fetching location. Make sure that location services are enabled and try again.');
 		}
-	}
+	};
 
 	//when the app first rendered it will get the current location of the user
 	useEffect(() => {
@@ -50,7 +53,9 @@ export default function useWeather() {
 
 	//when the current location of the user updated or the location that the user selected is updated the app will render again
 	useEffect(() => {
-		loadCurrWeather();
+		if (currLocation.latitude && currLocation.longitude) {
+			loadCurrWeather();
+		}
 	}, [currLocation, filterBy]);
 
 	return { currWeather, currLocation, setFilterBy, filterBy };
