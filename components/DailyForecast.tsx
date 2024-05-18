@@ -1,5 +1,5 @@
 import { CalendarDaysIcon } from 'react-native-heroicons/outline';
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { Weather } from '../types/weatherType';
 
@@ -29,7 +29,7 @@ export default function DailyForecast({ currWeather }: DailyForecastProps) {
 				showsHorizontalScrollIndicator={false}
 				keyExtractor={(item, index) => `${item.text}-${index}`}
 				ItemSeparatorComponent={() => <View style={{ width: 1 }}></View>}
-				ListEmptyComponent={() => <Text>No Items Found</Text>}
+				ListEmptyComponent={() => <ActivityIndicator size={50} color={'white'} animating={true} />}
 			/>
 		</View>
 	);
